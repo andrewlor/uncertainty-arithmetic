@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/Users/andrewlor/dev/uncertainty-arithmetic/build",
+  "command": "/usr/bin/c++ -g -std=gnu++20 -arch arm64 -Wall -Wextra -Wpedantic -fsanitize=address,undefined -o CMakeFiles/uncertainty_arithmetic.dir/src/main.cpp.o -c /Users/andrewlor/dev/uncertainty-arithmetic/src/main.cpp",
+  "file": "/Users/andrewlor/dev/uncertainty-arithmetic/src/main.cpp",
+  "output": "/Users/andrewlor/dev/uncertainty-arithmetic/build/CMakeFiles/uncertainty_arithmetic.dir/src/main.cpp.o"
+},
+{
+  "directory": "/Users/andrewlor/dev/uncertainty-arithmetic/build",
+  "command": "/usr/bin/c++ -g -std=gnu++20 -arch arm64 -Wall -Wextra -Wpedantic -fsanitize=address,undefined -o CMakeFiles/uncertainty_arithmetic.dir/src/evaluator.cpp.o -c /Users/andrewlor/dev/uncertainty-arithmetic/src/evaluator.cpp",
+  "file": "/Users/andrewlor/dev/uncertainty-arithmetic/src/evaluator.cpp",
+  "output": "/Users/andrewlor/dev/uncertainty-arithmetic/build/CMakeFiles/uncertainty_arithmetic.dir/src/evaluator.cpp.o"
+},
+{
+  "directory": "/Users/andrewlor/dev/uncertainty-arithmetic/build",
+  "command": "/usr/bin/c++ -g -std=gnu++20 -arch arm64 -Wall -Wextra -Wpedantic -fsanitize=address,undefined -o CMakeFiles/uncertainty_arithmetic.dir/src/parser.cpp.o -c /Users/andrewlor/dev/uncertainty-arithmetic/src/parser.cpp",
+  "file": "/Users/andrewlor/dev/uncertainty-arithmetic/src/parser.cpp",
+  "output": "/Users/andrewlor/dev/uncertainty-arithmetic/build/CMakeFiles/uncertainty_arithmetic.dir/src/parser.cpp.o"
+}
+]

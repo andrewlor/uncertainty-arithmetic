@@ -1,0 +1,17 @@
+# ninja log v7
+1	582	1790181089389127618	CMakeFiles/greet.dir/src/main.cpp.o	2716bf7750121b4d
+584	621	1790181089971404146	greet	b70e4565cbe7db16
+3	704	1790191120400614070	CMakeFiles/uncertainty_arithmetic.dir/src/main.cpp.o	2aa9467c8d6de693
+515	556	1790200498011543314	uncertainty_arithmetic	3a6edb498a260125
+1	71	1790202425561400883	build.ninja	a89570ef12153fe6
+1	71	1790202425560647198	/Users/andrewlor/dev/uncertainty-arithmetic/build/cmake_install.cmake	a89570ef12153fe6
+3	532	1790182403616171343	CMakeFiles/uncertainty_arithmetic.dir/src/expr.cpp.o	d042ccf7456f5ecb
+3	589	1790191120400883487	CMakeFiles/uncertainty_arithmetic.dir/src/parser.cpp.o	ff82fd5cca48b30d
+5	515	1790200497501161099	CMakeFiles/uncertainty_arithmetic.dir/src/eval.cpp.o	c88c880e684202fe
+2	83	1790202425561400883	build.ninja	a89570ef12153fe6
+2	83	1790202425561400883	/Users/andrewlor/dev/uncertainty-arithmetic/build/cmake_install.cmake	a89570ef12153fe6
+20	499	1790202425590074835	CMakeFiles/uncertainty_arithmetic.dir/src/evaluator.cpp.o	59e80cd97a4f6ce5
+20	560	1790202425589806052	CMakeFiles/uncertainty_arithmetic.dir/src/main.cpp.o	2aa9467c8d6de693
+5	514	1790202817761460958	CMakeFiles/uncertainty_arithmetic.dir/src/evaluator.cpp.o	59e80cd97a4f6ce5
+5	534	1790202817761101043	CMakeFiles/uncertainty_arithmetic.dir/src/main.cpp.o	2aa9467c8d6de693
+534	576	1790202818289837399	uncertainty_arithmetic	7d51b45f4cf458c1
