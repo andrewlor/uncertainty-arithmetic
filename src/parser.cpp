@@ -1,13 +1,17 @@
 #include "parser.h"
 
 #include <cctype>
+#include <cerrno>
+#include <cmath>
+#include <cstdlib>
 using namespace std;
 
 // Recursive-descent parser for the grammar:
 //
 //   expr    := term (('+' | '-') term)*
 //   term    := factor (('*' | '/') factor)*
-//   factor  := number | '(' expr ')'
+//   factor  := number | ident | '(' expr ')'
+//   ident   := (letter | '_') (letter | digit | '_')*
 //   number  := ['-'] decimal ['+/-' decimal]
 //   decimal := digits ['.' digits] | '.' digits
 //
@@ -30,6 +34,14 @@ public:
       fail("expected an operator");
     }
     return expr;
+  }
+
+  Measurement parse_measurement() {
+    Measurement num = parse_number();
+    if (peek() != '\0') {
+      fail("expected end of measurement");
+    }
+    return num;
   }
 
 private:
@@ -100,7 +112,24 @@ private:
       ++pos_;
       return inner;
     }
+    if (is_ident_start(peek())) {
+      return make_unique<Expr>(Expr{parse_ident()});
+    }
     return make_unique<Expr>(Expr{parse_number()});
+  }
+
+  static bool is_ident_start(char c) {
+    return isalpha(static_cast<unsigned char>(c)) || c == '_';
+  }
+
+  Variable parse_ident() {
+    size_t start = pos_;
+    while (pos_ < input_.size() &&
+           (is_ident_start(input_[pos_]) ||
+            isdigit(static_cast<unsigned char>(input_[pos_])))) {
+      ++pos_;
+    }
+    return {string(input_.substr(start, pos_ - start))};
   }
 
   Measurement parse_number() {
@@ -140,10 +169,23 @@ private:
       pos_ = start;
       fail("expected a number");
     }
-    return stod(string(input_.substr(start, pos_ - start)));
+    // strtod rather than stod: stod throws on underflow as well as overflow,
+    // but a value too small for a double should just round towards zero.
+    string text(input_.substr(start, pos_ - start));
+    errno = 0;
+    double value = strtod(text.c_str(), nullptr);
+    if (errno == ERANGE && isinf(value)) {
+      pos_ = start;
+      throw ParseError("number out of range", start);
+    }
+    return value;
   }
 };
 
 } // namespace
 
 unique_ptr<Expr> parse(string_view input) { return Parser(input).parse(); }
+
+Measurement parse_measurement(string_view input) {
+  return Parser(input).parse_measurement();
+}

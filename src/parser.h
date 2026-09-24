@@ -17,6 +17,10 @@ public:
 };
 
 // Parses an equation such as "(1.5+/-0.1 + 2) * 3" into an expression tree.
-// Supports +, -, *, / with the usual precedence, left-to-right associativity,
+// Supports variables, +, -, *, / with the usual precedence, left-to-right associativity,
 // and parentheses. Throws ParseError on invalid input.
 std::unique_ptr<Expr> parse(std::string_view input);
+
+// Parses a single measurement such as "10+/-0.1" (no operators or variables).
+// Throws ParseError on invalid input.
+Measurement parse_measurement(std::string_view input);

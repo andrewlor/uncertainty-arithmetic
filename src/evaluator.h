@@ -1,6 +1,7 @@
 #pragma once
 
 #include "expr.h"
+#include <map>
 #include <string>
 
 using namespace std;
@@ -12,6 +13,8 @@ private:
 
 public:
   explicit Evaluator(bool is_independent) : is_independent_(is_independent) {};
-  Measurement evaluate(const Expr &expr);
+  // Throws invalid_argument if expr references a variable missing from vars.
+  Measurement evaluate(const Expr &expr,
+                       const map<string, Measurement> &vars = {});
   string format_result(const Measurement &num);
 };
