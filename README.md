@@ -1,4 +1,4 @@
-# uncertainty
+# uncertainty-arithmetic
 
 CLI utility for computing arithmetic operations with measurement uncertainty.
 
