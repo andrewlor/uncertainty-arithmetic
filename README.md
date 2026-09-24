@@ -1,13 +1,13 @@
-# uncertainty-arithmetic
+# uncertainty
 
-A small command-line calculator that carries measurement uncertainty through arithmetic.
+CLI utility for computing arithmetic operations with measurement uncertainty.
 
-Write numbers as `value+/-uncertainty` and the tool tells you how much uncertainty the result has. You can pick worst-case or independent propagation. You can also run one equation over every row of a CSV of measurements.
-
+For example say you needed to compute (10.21 ± 0.01)kg multplied by (0.0754 ± 0.0002)g/kg:
 ```console
-$ uncertainty_arithmetic "(2.0+/-0.1) * (3.0+/-0.2)"
-6 +/- 0.7
+$ uncertainty_arithmetic "10.21 +/- 0.01 * 0.0754 +/- 0.0002"
+0.769834 +/- 0.002796
 ```
+=> (0.769834 ± 0.002796)g
 
 ## Building
 
@@ -41,9 +41,9 @@ $ uncertainty_arithmetic "(5.0+/-0.1) / (2.0+/-0.05)"
 
 ### Worst case vs. independent errors
 
-By default, uncertainties are combined **worst case**: every contribution is added linearly. This gives a conservative upper bound.
+By default, uncertainties are combined linearly. This gives a conservative bound on the worst case error ie. both errors swing to the same extreme.
 
-With `--independent`, contributions are added **in quadrature** (root-sum-square). This is the standard choice when the errors are random and uncorrelated, and it gives a tighter result.
+With `--independent`, uncertainties combined in a quadrature (root-sum-square). This assumes the uncertainties are independent and random, so the they just as likely to partially cancel as to reinforce. Both being at their extremes in the same direction is unlikely, so the combined uncertainty is smaller than the worst case.
 
 ```console
 $ uncertainty_arithmetic "12.4+/-0.2 - 3.1+/-0.1"
@@ -52,15 +52,6 @@ $ uncertainty_arithmetic "12.4+/-0.2 - 3.1+/-0.1"
 $ uncertainty_arithmetic --independent "12.4+/-0.2 - 3.1+/-0.1"
 9.3 +/- 0.223607
 ```
-
-The rules, where `δ` is the absolute uncertainty and `⊕` is `+` (worst case) or root-sum-square (independent):
-
-| Operation | Result uncertainty          |
-|-----------|-----------------------------|
-| `a + b`   | `δa ⊕ δb`                   |
-| `a - b`   | `δa ⊕ δb`                   |
-| `a * b`   | `\|b\|·δa ⊕ \|a\|·δb`       |
-| `a / b`   | `δa/\|b\| ⊕ \|a\|·δb/b²`    |
 
 ### Evaluating a CSV of measurements
 
@@ -81,30 +72,6 @@ $ uncertainty_arithmetic --independent "distance / time" runs.csv
 ```
 
 Variable names start with a letter or `_`, followed by letters, digits or `_`.
-
-### Errors
-
-Parse errors show where the problem is:
-
-```console
-$ uncertainty_arithmetic "2 * (3 +"
-Error: expected a number, found end of input
-  2 * (3 +
-          ^
-```
-
-## Example uses
-
-- **Lab reports:** propagate instrument precision through a derived quantity, such as density from mass and volume.
-- **Batch processing:** compute a derived value with its uncertainty for every trial in a data log.
-- **Tolerance stack-ups:** add part dimensions with manufacturing tolerances. Use worst case for guaranteed fit and `--independent` for a statistical estimate.
-- **Sanity checks:** quickly see which input dominates the error in a calculation.
-
-## Limitations
-
-- Each occurrence of a value is treated as a separate measurement, so correlations are not tracked. For example, `x - x` gives a nonzero uncertainty.
-- Propagation is first order (linear), which is accurate when uncertainties are small relative to their values.
-- Only `+ - * /` are supported for now; there are no functions or powers.
 
 ## Running the tests
 
